@@ -1,0 +1,256 @@
+/* The version of Bourbon used in this Pen was 4.* */
+@import "bourbon";
+
+@import url("https://fonts.googleapis.com/css?family=Lato:300,400");
+$background: #007E62;
+$tabs-base-color: #e6e6e6;
+$tabs-inactive-color: #d8d8d8;
+$green: #17BD96;
+$radius: 5px;
+
+
+*, *:before, *:after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  box-sizing: inherit;
+}
+
+body {
+  background: $background;
+  font-family: 'Lato';
+  font-weight: 300;
+  font-size: 1em;
+  color: #737373;
+	padding: 3em 0 0 0;
+}
+
+
+.grid {
+  display: block;
+  
+  .cube {
+    @include transition(transform 0.33s);
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    height: 100px;
+    width: 30%;
+    margin: 0 auto;
+    
+    .item {
+      background-color: $tabs-base-color;
+      height: 345px;
+      width: 300px;
+      border-radius: $radius;
+      @include transform(translateZ(172.5px))
+    }
+
+    .done {
+      background-color: $tabs-base-color;
+      height: 345px;
+      width: 300px;
+      -webkit-transform: rotateX(-90deg) translateZ(-172.5px);
+	    transform: rotateX(-90deg) translateZ(-172.5px);
+      //background-color: $green;
+      border-radius: $radius;
+      border: 2px solid $green;
+      overflow: hidden;
+      position: relative;
+      
+      #fill {
+        position: absolute;
+        width: 1%;
+        height: 1%;
+        top: 50%;
+        left: 50%;
+        background-color: $green;
+        opacity: 0;
+        border-radius: 50%;
+      }
+      
+      #canvas {
+        position: absolute;
+      }
+      
+      .success {
+        text-align: center;
+        position: relative;
+        z-index: 99;
+        opacity: 0;
+        margin: 0 auto;
+        color: #fff;
+        margin-top: 35px;
+        font-size: 2em;
+        
+        i {
+          display: block;
+          font-size: 200px;
+        }
+      }
+    }
+    
+    .tabs {
+      float: none;
+      list-style: none;
+
+      li {
+        width: 50%;
+        float: left;
+        display: block;
+        &:first-child label.nav {
+          border-radius: $radius 0 0 0;
+          border-right: 1px solid darken($tabs-inactive-color, 10%);
+        }
+        &:last-child label.nav {
+          border-radius: 0 $radius 0 0;
+        }
+      }
+      input[type='radio'] {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+      }
+      .nav {
+        display: block;
+        padding: 14px;
+        font-weight: 300;
+        background: $tabs-inactive-color;
+        cursor: pointer;
+        position: relative;
+        top: 0;
+        border-bottom: 1px solid darken($tabs-inactive-color, 10%);
+        text-align: center;
+        @include transition(all 0.1s ease-in-out);
+      }
+      .tab-content {
+        margin-top: 45px;
+        z-index: 2;
+        display: none;
+        overflow: hidden;
+        width: 100%;
+        line-height: 25px;
+        padding: 25px;
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        .frm {
+          font-weight: 400;
+          font-size: .8em;
+        }
+
+        input[type='email'],
+        input[type='password'],input[type='text'] {
+          display: block;
+          line-height: 25px;
+          width: 90%;
+          padding: 3px 10px 3px 10px;
+          font-weight: 300;
+          font-size: .8em;
+          outline: none;
+          box-sizing: content-box;
+          border: 1px solid $tabs-inactive-color;
+          @include transition(all 0.30s ease-in-out);
+          &:focus {
+            border: 1px solid $green;
+          }
+        }
+
+        input {
+          margin-bottom: 10px;
+        }
+
+        #loginBtn {
+          width: 100%;
+          background-color: $green;
+          padding: 12px;
+          margin: 10px 0 10px 0;
+          border: 1px solid $green;
+          border-radius: $radius;
+          cursor: pointer;
+          color: #fff;
+          outline: none;
+          font-size: 1em;
+          font-weight: light;
+          @include transition(all 0.1s ease-in-out);
+          &:hover {
+            background-color: lighten($green, 5%);
+          }
+        }
+
+        span {
+          display: block;
+          width: 100%;
+          text-align: center;
+          font-size: .8em;
+          a, a:active, a:visited {
+            color: $green;
+          }
+        }
+      }
+      [id^="tab"]:checked + label {
+        z-index: 50;
+        box-sizing: border-box;
+        background-color: $tabs-base-color;
+        color: $green;
+
+        &:after, &:before {
+          z-index: 50;
+          content: "";
+          position: absolute;
+          border-style: solid;
+          border-color: transparent;
+          border-bottom: 0;
+          border-width: 10px;
+          left: 45%;
+        }
+        &:before {
+          bottom: -11px;
+          border-top-color: darken($tabs-inactive-color, 10%);
+          z-index: 60;
+        }
+        &:after {
+          bottom: -9.5px;
+          z-index: 65;
+          border-top-color: $tabs-base-color;
+        }
+      }
+      [id^="tab"]:checked ~ [class^="tab-content"] {
+        display: block;
+
+      }
+    }
+  }
+}
+
+canvas {
+  width: 300px;
+  height: 345px;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.animate {
+  @include animation(fadeOut .3s ease-in);
+  @include animation-fill-mode(forwards);
+}
+
+@include keyframes(fadeOut) {
+  from {
+    left: 50%;
+    top: 50%;
+    width: 1%;
+    height: 1%;
+    opacity: 1;
+  }
+  to {
+    left: -25%;
+    top: -25%;
+    width: 150%;
+    height: 150%;
+    opacity: 1;
+  }
+}

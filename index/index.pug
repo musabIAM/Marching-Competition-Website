@@ -1,0 +1,50 @@
+.grid
+  .cube
+    .item
+      ul.tabs
+        li
+          input(type='radio' name='tabs' id='tab1' checked)
+          label(for='tab1').nav Login
+          #loginTabContent.tab-content
+
+            form(id='loginForm')
+              label(for='email').frm Email Address
+              input(type='email' name='login' required)
+
+              label(for='password').frm Password
+              input(type='password' name='password' required)
+
+              input(type='checkbox' name='keep')
+              label(for='keep').frm Keep me logged in.
+
+              button(id='loginBtn' type='submit') Login
+
+              span
+                a(href='#') Forgot your password?
+
+        li
+          input(type='radio' name='tabs' id='tab2')
+          label(for='tab2').nav Register
+          #signupTabContent.tab-content
+
+            form
+              label(for='email').frm User Name
+              input(type='email' name='login' required)
+              
+              label(for='email').frm Email Address
+              input(type='email' name='login' required)
+
+              label(for='password').frm Password
+              input(type='password' name='password' required)
+
+              label(for='password').frm Confirm Password
+              input(type='password' name='password' required)
+
+              button(id='loginBtn' type='submit') Register
+
+    .done
+      canvas#canvas
+      #fill
+      .success
+        span Login Successful
+        i.fa.fa-check
